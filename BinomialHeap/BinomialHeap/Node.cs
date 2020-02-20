@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace BinomialHeap.BinomialHeap
 {
    
-    class CurHeap// <T> // Можно сделать template
+    class Node// <T> // Можно сделать template
     {
         //Поля
-        public CurHeap right;
-        public CurHeap left;
-        public CurHeap sibling;
+        public Node right;
+        public Node left;
+        public Node sibling;
         public int value;
 
 
 
         //Конструкторы
-        public CurHeap()
+        public Node()
         {
             this.right = null;
             this.left = null;
@@ -26,7 +26,7 @@ namespace BinomialHeap.BinomialHeap
             this.value = 0;
         }
 
-        public CurHeap(CurHeap right, CurHeap left, CurHeap sibling, int value)
+        public Node(Node right, Node left, Node sibling, int value)
         {
             this.right = right;
             this.left = left;
