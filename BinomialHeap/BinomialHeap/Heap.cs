@@ -44,5 +44,10 @@ namespace BinomialHeap.BinomialHeap
         public void Insert(int value) { }
         // Плюс еще методы, если надо будет 
 
+        public Heap GetSibling()
+        {
+            // Возвращает брата
+            return null;
+        }
     }
 }

@@ -6,27 +6,24 @@ using System.Threading.Tasks;
 
 namespace BinomialHeap.BinomialHeap
 {
-   
+
     class Node// <T> // Можно сделать template
     {
         //Поля
-        public Node right;
-        public Node child;
-        public Node sibling;
+        public Node left { get; set; }
+        public Node brother;
+        public Node parent;
         public int value;
-        public int degree; //степень и количество потомков
 
 
 
         //Конструкторы
         public Node()
         {
-            this.right = null;
-            this.child = null;
-            this.sibling = null;
+            this.brother = null;
+            this.left = null;
+            this.parent = null;
             this.value = 0;
         }
-
-
     }
 }
