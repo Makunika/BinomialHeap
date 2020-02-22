@@ -9,7 +9,7 @@ namespace BinomialHeap.BinomialHeap
     class Heap //у правого потомка не могут быть потомков
     {
         //Поля
-        CurHeap head;
+        Node head;
 
         
         //Конструкторы
@@ -37,10 +37,10 @@ namespace BinomialHeap.BinomialHeap
         //////////////МЕТОДЫ МАКСИМ////////////////////////////
         public int GetMin() { return 5; }
         public int GetMax() { return 5; }
-        public void DeleteCur(CurHeap cur) { }
+        public void DeleteCur(Node cur) { }
 
         //////////////МЕТОДЫ СЕРЕЖА////////////////////////////
-        public CurHeap FindCur(int value) { return new CurHeap(); }
+        public Node FindCur(int value) { return new Node(); }
         public void Insert(int value) { }
         // Плюс еще методы, если надо будет 
 

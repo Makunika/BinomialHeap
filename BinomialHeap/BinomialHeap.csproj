@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinomialHeap\BinomialHeap.cs" />
-    <Compile Include="BinomialHeap\CurHeap.cs" />
+    <Compile Include="BinomialHeap\Node.cs" />
     <Compile Include="BinomialHeap\Heap.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
