@@ -10,10 +10,12 @@ namespace BinomialHeap.BinomialHeap
     class Node// <T> // Можно сделать template
     {
         //Поля
-        public Node left { get; set; }
+        public Heap heap; //дерево, которому он пренадежит
+        public Node child { get; set; }
         public Node brother;
         public Node parent;
         public int value;
+        public int degree;
 
 
 
@@ -21,9 +23,11 @@ namespace BinomialHeap.BinomialHeap
         public Node()
         {
             this.brother = null;
-            this.left = null;
+            this.child = null;
             this.parent = null;
             this.value = 0;
+            this.degree = 0;
+            this.heap = null;
         }
     }
 }
