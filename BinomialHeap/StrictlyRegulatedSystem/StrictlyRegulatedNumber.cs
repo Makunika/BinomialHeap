@@ -66,20 +66,19 @@ namespace BinomialHeap.StrictlyRegulatedSystem
                     break;
                 }
             }
-            bool is_da_NA = false; // Флаг, который поднимается, если db не существует
+            bool is_da_NA = false; // Флаг, который поднимается, если da не существует
             // Если индекс не изменился, значит, после di нет экстремальных чисел
             if (index_of_da == -1)
             {
                 is_da_NA = true;
             }
             // 4. if di=3 or ( di=2 and db!=0 )
-            if (d[i] == 3 || (d[i] == 2 && (is_db_NA || d[index_of_db] != 0)))
+            if (d[i] == 3 || (d[i] == 2 && (is_db_NA || d[index_of_db] == 2)))
             {
                 fix_carry(ref d, i);
             }
             // 5. else if da = 2
             else if (!is_da_NA)
-                    if (d[index_of_da] == 2)
                         {
                             fix_carry(ref d, index_of_da);
                         }
@@ -108,7 +107,8 @@ namespace BinomialHeap.StrictlyRegulatedSystem
                     d.Add(0);
                 }
                 d[i + 1] = d[i + 1] + 1; // Рекурсия?! Проверять то, что заменили вот здесь
-                if (d[i + 1] >= 2)
+                //increment(ref d, i + 1);
+                if (d[i + 1] > 2)
                 {
                     fix_carry(ref d, i + 1);
                 }

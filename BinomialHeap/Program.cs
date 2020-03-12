@@ -40,11 +40,14 @@ namespace BinomialHeap
             //print_list(our_number);
             //StrictlyRegulatedSystem.StrictlyRegulatedNumber.increment(ref our_number, 0);
             //print_list(our_number);
-            for(int a = 0; a < 10; a++)
+            for(int a = 0; a < 100; a++)
             {
+                Random rnd = new Random();
+                int разряд = rnd.Next(0, 10);
                 StrictlyRegulatedSystem.StrictlyRegulatedNumber.increment(ref our_number, 0);
                 print_list(our_number);
             }
+            //print_list(our_number);
         }
     }
 }
