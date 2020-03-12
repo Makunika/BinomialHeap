@@ -78,10 +78,10 @@ namespace BinomialHeap.StrictlyRegulatedSystem
                 fix_carry(ref d, i);
             }
             // 5. else if da = 2
-            else if (!is_da_NA)
-                        {
-                            fix_carry(ref d, index_of_da);
-                        }
+            else if (!is_da_NA && d[index_of_da] == 2)
+            {
+                fix_carry(ref d, index_of_da);
+            }
         }
 
         static public void decrement(ref List<int> d, int i)
@@ -111,6 +111,19 @@ namespace BinomialHeap.StrictlyRegulatedSystem
                 if (d[i + 1] > 2)
                 {
                     fix_carry(ref d, i + 1);
+                }
+                if (d[i+1] == 2)
+                {
+                    // Нужно проверять, есть ли элемент (i+2):
+                    if (d.Count - 1 > i + 1)
+                    {
+                        //Если i+2 == 2
+                        if (d[i + 2] == 2)
+                        {
+                            // Расскладываем 2-ку.
+                            fix_carry(ref d, i + 2);
+                        }
+                    }
                 }
              }
         }
