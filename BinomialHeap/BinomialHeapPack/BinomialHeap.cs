@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinomialHeap.BinomialHeap
+namespace BinomialHeap.BinomialHeapPack
 {
     class BinomialHeap
     {
@@ -16,15 +16,33 @@ namespace BinomialHeap.BinomialHeap
 
         public BinomialHeap()
         {
+            binHeaps = new List<BinHeapNode>();
             BinHeapNode tmp = new BinHeapNode();
             binHeaps.Add(tmp);
         }
 
-        public BinomialHeap(BinomialHeap binomialHeap)
+        public BinomialHeap(int num)
         {
-            binHeaps = binomialHeap.binHeaps;
+            binHeaps = new List<BinHeapNode>();
+            BinHeapNode tmp = new BinHeapNode();
+
+            Heap heaptmp = new Heap(num);
+            tmp.SetHeap(heaptmp);
+            binHeaps.Add(tmp);
         }
 
+
+        public BinomialHeap(BinomialHeap binomialHeap)
+        {
+            binHeaps = new List<BinHeapNode>(binomialHeap.binHeaps);
+        }
+
+
+        public void Insert(int num)
+        {
+            BinomialHeap binomialHeapTmp = new BinomialHeap(num);
+            Insert(binomialHeapTmp);
+        }
 
 
         public void Insert(BinomialHeap binomialHeap2)
@@ -82,28 +100,28 @@ namespace BinomialHeap.BinomialHeap
 
         private void Merge(Heap HeapMerge)
         {
-            int indexElement = (int)(Math.Log(HeapMerge.degree) / Math.Log(2)) - 1;
 
             //если индекс выходит за пределы листа binHeaps, то добавляет доп элемент (больше 1 не может быть)
-            if (indexElement > binHeaps.Count - 1)
+            if (HeapMerge.degree > binHeaps.Count - 1)
             {
                 BinHeapNode tmp = new BinHeapNode();
                 binHeaps.Add(tmp);
             }
-            switch (binHeaps[indexElement].size)
+            switch (binHeaps[HeapMerge.degree].size)
             {
                 case 0:
                 case 1:
                     {
                         //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
-                        binHeaps[indexElement].SetHeap(HeapMerge);
+                        binHeaps[HeapMerge.degree].SetHeap(HeapMerge);
                         break;
                     }
                 case 2:
                     {
                         //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
-                        HeapMerge.Merge(binHeaps[indexElement].h2);
-                        binHeaps[indexElement].SetHeap(null);
+                        int degreetmp = HeapMerge.degree;
+                        HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                        binHeaps[degreetmp].SetHeap(null);
                         Merge(HeapMerge);
                         break;
                     }

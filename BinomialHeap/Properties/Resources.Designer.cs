@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BinomialHeap.Properties {
+namespace BinomialHeapPack.Properties {
     using System;
     
     

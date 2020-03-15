@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BinomialHeap.BinomialHeap;
+using BinomialHeap.BinomialHeapPack;
 
 namespace BinomialHeap
 {

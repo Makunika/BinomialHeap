@@ -47,10 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinomialHeap\BinHeapNode.cs" />
-    <Compile Include="BinomialHeap\BinomialHeap.cs" />
-    <Compile Include="BinomialHeap\Node.cs" />
-    <Compile Include="BinomialHeap\Heap.cs" />
+    <Compile Include="BinomialHeapPack\BinHeapNode.cs" />
+    <Compile Include="BinomialHeapPack\BinomialHeap.cs" />
+    <Compile Include="BinomialHeapPack\Node.cs" />
+    <Compile Include="BinomialHeapPack\Heap.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

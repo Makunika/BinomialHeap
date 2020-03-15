@@ -9,7 +9,7 @@ namespace BinomialHeap.Visualization
     static class Visualization
     {
         //TODO: static методы для визуализации кучи. (либо будет http запрос делать, либо в win forms)
-        public static void VisualizationStart(BinomialHeap.BinomialHeap heap)
+        public static void VisualizationStart(BinomialHeapPack.BinomialHeap heap)
         {
 
         }

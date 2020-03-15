@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics; // Для использования Debug.WriteLine
+using BinomialHeap.BinomialHeapPack;
 
 namespace BinomialHeap
 {
@@ -56,31 +57,26 @@ namespace BinomialHeap
             //b.AddChild(a);
             //b.AddChild(new BinomialHeap.Node(7));
 
-            BinomialHeap.Heap a = new BinomialHeap.Heap(10);
-            BinomialHeap.Heap b = new BinomialHeap.Heap(11);
-            BinomialHeap.Heap c = new BinomialHeap.Heap(12);
-            BinomialHeap.Heap d = new BinomialHeap.Heap(13);
+            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);
+            binomialHeap.Insert(11);
+            binomialHeap.Insert(12);
+            binomialHeap.Insert(13);
 
-            a.Merge(b);
-            d.Merge(c);
-            a.Merge(d); // Теперь a - дерево степени 2.
+            Debug.WriteLine("binomialHeap min = {0}", binomialHeap.GetMin()); // 10
 
-            Debug.WriteLine("a min = {0}",a.GetMin()); // 10
+            BinomialHeapPack.BinomialHeap binomialHeap2 = new BinomialHeapPack.BinomialHeap(3);
+            binomialHeap2.Insert(4);
+            binomialHeap2.Insert(2);
+            binomialHeap2.Insert(8);
 
-            BinomialHeap.Heap _a = new BinomialHeap.Heap(3);
-            BinomialHeap.Heap _b = new BinomialHeap.Heap(4);
-            BinomialHeap.Heap _c = new BinomialHeap.Heap(2);
-            BinomialHeap.Heap _d = new BinomialHeap.Heap(8);
 
-            _a.Merge(_b);
-            _d.Merge(_c);
-            _a.Merge(_d); // Теперь _a - дерево степени 2.
+            Debug.WriteLine("binomialHeap2 min = {0}", binomialHeap2.GetMin()); // 2
 
-            Debug.WriteLine("_a min = {0}",_a.GetMin()); // 2
+            binomialHeap.Insert(binomialHeap2); // Теперь binomialHeap - дерево степени 3.
 
-            a.Merge(_a); // Теперь a - дерево степени 3.
-            Debug.WriteLine("a min = {0}",a.GetMin()); // 2
-            Debug.WriteLine("a degree = {0}",a.degree); // 3
+            binomialHeap.Insert(4);
+
+            Debug.WriteLine("a min = {0}", binomialHeap.GetMin()); // 2
         }
     }
 }
