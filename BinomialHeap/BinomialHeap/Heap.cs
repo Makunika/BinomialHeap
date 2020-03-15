@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BinomialHeap.BinomialHeap
 {
-    class Heap //у правого потомка не могут быть потомков
+    class Heap
     {
         //Поля
         public Node head; //братья головоного узла дерева настраивается в классе BinomialHeap
@@ -42,7 +42,6 @@ namespace BinomialHeap.BinomialHeap
         public Heap(Node headNode)
         {
             head = headNode;
-            head.degree = 1;
         }
 
 
@@ -54,7 +53,7 @@ namespace BinomialHeap.BinomialHeap
             int lenghtList = (int)(Math.Log(degree) / Math.Log(2)) - 1;
             Heap[] list = new Heap[lenghtList];
 
-            //TODO: код удаления ноды
+            // TODO: код удаления ноды
             //А может лучше только минимум удалять, а не рандомную ноду?
 
 
@@ -62,21 +61,26 @@ namespace BinomialHeap.BinomialHeap
             return list;
         }
 
-        //TODO
-        public Node FindCur(int value) { return new Node(); }
+        public Node Find(int value)
+        {
+            if (head != null){
+                return head.Find(value);
+            }
+            return null;
+        }
 
 
         public void Insert(int value) 
         {
             if (head == null)
             {
-                head = new Node();
-                head.degree = 1;
-                head.value = 1;
+                head = new Node(value);
+                // head.heap = this;
             }
             else
             {
                 Heap heapTmp = new Heap(value);
+                // head.heap = this;
                 Merge(heapTmp);
             }
         }
@@ -85,33 +89,28 @@ namespace BinomialHeap.BinomialHeap
         {
             if (this == null) head = heapMerge.head;
             if (heapMerge == null) return;
-            if (degree != heapMerge.degree) throw new InvalidOperationException("Degrees not correct");
+            if (degree != heapMerge.degree) throw new InvalidOperationException("Degrees are not equal.");
 
 
-            if (head.value <= heapMerge.head.value)
+            if (head.value <= heapMerge.head.value) // Если у существующего дерева head меньше head добавляемого дерева
             {
-                heapMerge.head.parent = head;
-                heapMerge.head.brother = head.child;
-                head.child = heapMerge.head;
-                head.degree = heapMerge.degree + head.degree;
+                this.head.AddChild(heapMerge.head); // Добавляем новое дерево в качестве потомка исходного дерева
+                //heapMerge.head.parent = head;
+                //heapMerge.head.brother = head.child;
+                //head.child = heapMerge.head;
+                //head.degree = heapMerge.degree + head.degree;
             }
             else
             {
-                head.parent = heapMerge.head;
-                head.brother = heapMerge.head.child;
-                heapMerge.head.child = head;
-                heapMerge.head.degree = heapMerge.degree + head.degree;
-                head = heapMerge.head;
+                heapMerge.head.AddChild(this.head); // Добавляем текущее дерево в качестве потомка нового дерева
+                // this.head.parent = heapMerge.head;
+                // this.head.brother = heapMerge.head.child;
+                // heapMerge.head.child = this.head;
+                // heapMerge.head.degree = heapMerge.degree + this.head.degree;
+                this.head = heapMerge.head; // Перемещаем ссылку верхушки дерева на верхушку нового дерева
+                // this.head.heap = this;
             }
-
         }
 
-
-
-        public Heap GetSiblingHeap()
-        {
-            // Возвращает брата
-            return head.heap;
-        }
     }
 }
