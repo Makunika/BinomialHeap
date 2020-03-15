@@ -107,9 +107,14 @@ namespace BinomialHeap.BinomialHeapPack
                 BinHeapNode tmp = new BinHeapNode();
                 binHeaps.Add(tmp);
             }
-            switch (binHeaps[HeapMerge.degree].size)
+            switch (binHeaps[HeapMerge.degree].size) // Бит, который стоит на месте степени дерева в числе
             {
                 case 0:
+                    {
+                        //если в элемнете хранится 0 пирамида, то просто добавляем ее туда
+                        binHeaps[HeapMerge.degree].SetHeap(HeapMerge);
+                        return;
+                    }
                 case 1:
                     {
                         //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
@@ -119,16 +124,182 @@ namespace BinomialHeap.BinomialHeapPack
                 case 2:
                     {
                         //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
-                        int degreetmp = HeapMerge.degree;
-                        HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
-                        binHeaps[degreetmp].SetHeap(null);
-                        Merge(HeapMerge);
+                        //int degreetmp = HeapMerge.degree;
+                        //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                        //binHeaps[degreetmp].SetHeap(null);
+                        //Merge(HeapMerge);
+                        binHeaps[HeapMerge.degree].size = 3;
                         break;
                     }
                 default:
                     break;
             }
+
+            // 1. ++di
+
+
+
+
+
+            // 2. Находим db - первую экстремальную цифру {0,2,N/A} перед (дальше в списке) i
+            int index_of_db = -1;
+            for (int bit = HeapMerge.degree + 1; bit < binHeaps.Count - 1; bit++) // Проходимся до конца списка
+            {
+                if ((binHeaps[bit].size == 0) || (binHeaps[bit].size == 2)) // TODO: Понять, что значит N/A число.
+                {
+                    index_of_db = bit;
+                    break;
+                }
+            }
+            bool is_db_NA = false; // Флаг, который поднимается, если db не существует
+            // Если индекс не изменился, значит, после di нет экстремальных чисел
+            if (index_of_db == -1)
+            {
+                is_db_NA = true;
+            }
+            // 3. Находим da - первую экстремальную цифру {0,2,N/A} после (раньше в списке) i
+            int index_of_da = -1;
+            for (int bit = HeapMerge.degree - 1; bit >= 0; bit--) // Проходимся до начала списка
+            {
+                if ((binHeaps[bit].size == 0) || (binHeaps[bit].size == 2)) // TODO: Понять, что значит N/A число.
+                {
+                    index_of_da = bit;
+                    break;
+                }
+            }
+            bool is_da_NA = false; // Флаг, который поднимается, если db не существует
+            // Если индекс не изменился, значит, после di нет экстремальных чисел
+            if (index_of_da == -1)
+            {
+                is_da_NA = true;
+            }
+            // 4. if di=3 or ( di=2 and db!=0 )
+            if (binHeaps[HeapMerge.degree].size == 3 || (binHeaps[HeapMerge.degree].size == 2 && (is_db_NA || binHeaps[index_of_db].size != 0)))
+            {
+                if (binHeaps[HeapMerge.degree].size == 3)
+                {
+                    fix_carry(HeapMerge.degree, HeapMerge);
+                }
+                else
+                {
+                    fix_carry(HeapMerge.degree, null);
+                }
+            }
+            // 5. else if da = 2
+            else if (!is_da_NA)
+                if (binHeaps[index_of_da].size == 2)
+                {
+                    fix_carry(index_of_da, null);
+                }
         }
+
+
+        private void fix_carry(int indexDegree, Heap h3)
+        {
+            // Операция "фикс-перенос".
+
+            // Считается, что di >= 2.
+            if (binHeaps[indexDegree].size >= 2)
+            {
+                //Выполняем:
+                // 1. d_i←d_i-2
+                if (binHeaps.Count - 1 < indexDegree + 1)
+                {
+                    BinHeapNode tmp = new BinHeapNode();
+                    binHeaps.Add(tmp);
+                }
+
+
+                if (binHeaps[indexDegree].size == 3)
+                {
+                    h3.Merge(binHeaps[indexDegree].h2);
+                    binHeaps[indexDegree].SetHeap(null);
+                    //Merge(h3);
+                    switch (binHeaps[indexDegree + 1].size) // Бит, который стоит на месте степени дерева в числе
+                    {
+                        case 0:
+                        case 1:
+                            {
+                                //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
+                                binHeaps[indexDegree + 1].SetHeap(h3);
+                                break;
+                            }
+                        case 2:
+                            {
+                                //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
+                                //int degreetmp = HeapMerge.degree;
+                                //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                                //binHeaps[degreetmp].SetHeap(null);
+                                //Merge(HeapMerge);
+                                binHeaps[indexDegree + 1].size = 3;
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    Heap tmp1;
+                    binHeaps[indexDegree].h1.Merge(binHeaps[indexDegree].h2); // d[i] = d[i] - 2;
+                    tmp1 = binHeaps[indexDegree].h1;
+                    binHeaps[indexDegree].SetHeap(null);
+                    binHeaps[indexDegree].SetHeap(null);
+                    //Merge(tmp1);
+                    switch (binHeaps[indexDegree + 1].size) // Бит, который стоит на месте степени дерева в числе
+                    {
+                        case 0:
+                        case 1:
+                            {
+                                //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
+                                binHeaps[indexDegree + 1].SetHeap(tmp1);
+                                break;
+                            }
+                        case 2:
+                            {
+                                //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
+                                //int degreetmp = HeapMerge.degree;
+                                //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                                //binHeaps[degreetmp].SetHeap(null);
+                                //Merge(HeapMerge);
+                                binHeaps[indexDegree + 1].size = 3;
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+
+
+                }
+                // 2. d_(i+1)←d_(i+1)+1
+                // Нужно проверять, есть ли элемент (i+1):
+
+                //if (binHeaps.Count - 1 < indexDegree + 1)
+                //{
+                //    //Если длина числа меньше, чем необходимый бит, то дописываем к числу 0.
+                //    d.Add(0);
+                //}
+                // d[indexDegree + 1] = d[indexDegree + 1] + 1; // Рекурсия?! Проверять то, что заменили вот здесь
+
+                // Вот здесь merge между tmp и деревом, которое хранилось в ячейке indexDegree + 1
+
+                if (binHeaps[indexDegree + 1].size >= 2)
+                {
+                    if (binHeaps[indexDegree + 1].size == 3)
+                    {
+                        fix_carry(indexDegree + 1, h3);
+                    }
+                    else
+                    {
+                        fix_carry(indexDegree + 1, null);
+                    }
+                }
+            }
+        }
+
+
+
+
 
         public Heap[] FindHeap(int degree)
         {

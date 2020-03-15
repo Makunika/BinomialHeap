@@ -121,6 +121,8 @@ namespace BinomialHeap.BinomialHeapPack
         {
             /* Тот же Find, но без рекурсии.
              */
+
+            //TODO: Реализовать поиск без рекурсии (?)
              return null;
         }
     }

@@ -20,22 +20,32 @@ namespace BinomialHeap.BinomialHeapPack
 
         public void SetHeap(Heap heap)
         {
-            if (size == 2)
+            if (heap == null)
             {
-                if (heap == null) size = 1;
-                else throw new Exception("BinHeapNode size > 2");
-            }
-            if (size == 1)
-            {
-                h2 = heap;
-                if (heap == null) size = 1;
-                else size = 2;
+                if (size == 2)
+                {
+                    h2 = null;
+                    size = 1;
+                }
+                if (size == 1)
+                {
+                    h1 = null;
+                    size = 0;
+                }
             }
             else
             {
-                h1 = heap;
-                if (heap == null) size = 0;
-                else size = 1;
+                if (size == 2) throw new Exception("BinHeapNode size > 2");
+                if (size == 1)
+                {
+                    h2 = heap;
+                    size = 2;
+                }
+                else
+                {
+                    h1 = heap;
+                    size = 1;
+                }
             }
 
 
