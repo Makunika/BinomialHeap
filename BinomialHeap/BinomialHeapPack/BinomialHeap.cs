@@ -113,7 +113,7 @@ namespace BinomialHeap.BinomialHeapPack
                     {
                         //если в элемнете хранится 0 пирамида, то просто добавляем ее туда
                         binHeaps[HeapMerge.degree].SetHeap(HeapMerge);
-                        return;
+                        break;
                     }
                 case 1:
                     {
@@ -151,12 +151,9 @@ namespace BinomialHeap.BinomialHeapPack
                     break;
                 }
             }
-            bool is_db_NA = false; // Флаг, который поднимается, если db не существует
             // Если индекс не изменился, значит, после di нет экстремальных чисел
-            if (index_of_db == -1)
-            {
-                is_db_NA = true;
-            }
+            bool is_db_NA = index_of_db == -1; // Флаг, который поднимается, если db не существует
+            
             // 3. Находим da - первую экстремальную цифру {0,2,N/A} после (раньше в списке) i
             int index_of_da = -1;
             for (int bit = HeapMerge.degree - 1; bit >= 0; bit--) // Проходимся до начала списка
@@ -167,12 +164,9 @@ namespace BinomialHeap.BinomialHeapPack
                     break;
                 }
             }
-            bool is_da_NA = false; // Флаг, который поднимается, если db не существует
             // Если индекс не изменился, значит, после di нет экстремальных чисел
-            if (index_of_da == -1)
-            {
-                is_da_NA = true;
-            }
+            bool is_da_NA = index_of_da == -1; // Флаг, который поднимается, если db не существует
+
             // 4. if di=3 or ( di=2 and db!=0 )
             if (binHeaps[HeapMerge.degree].size == 3 || (binHeaps[HeapMerge.degree].size == 2 && (is_db_NA || binHeaps[index_of_db].size != 0)))
             {
@@ -257,6 +251,10 @@ namespace BinomialHeap.BinomialHeapPack
                             }
                         case 2:
                             {
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////TODO: ЕСЛИ СЛЕДУЮЩИЙ БИТ СТАНЕТ 3, ТО ЭТО НИКАК НЕ ОБРАБАТЫВАЕТСЯ И ОН ОСТАНЕТСЯ ТРОЙКОЙ///////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                
                                 //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
                                 //int degreetmp = HeapMerge.degree;
                                 //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
@@ -283,17 +281,17 @@ namespace BinomialHeap.BinomialHeapPack
 
                 // Вот здесь merge между tmp и деревом, которое хранилось в ячейке indexDegree + 1
 
-                if (binHeaps[indexDegree + 1].size >= 2)
-                {
-                    if (binHeaps[indexDegree + 1].size == 3)
-                    {
-                        fix_carry(indexDegree + 1, h3);
-                    }
-                    else
-                    {
-                        fix_carry(indexDegree + 1, null);
-                    }
-                }
+                //if (binHeaps[indexDegree + 1].size >= 2)
+                //{
+                //    if (binHeaps[indexDegree + 1].size == 3)
+                //    {
+                //        fix_carry(indexDegree + 1, h3);
+                //    }
+                //    else
+                //    {
+                //        fix_carry(indexDegree + 1, null);
+                //    }
+                //}
             }
         }
 

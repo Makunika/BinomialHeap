@@ -57,8 +57,8 @@ namespace BinomialHeap
             //b.AddChild(a);
             //b.AddChild(new BinomialHeap.Node(7));
 
-            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);
-            binomialHeap.Insert(11);
+            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);//
+            binomialHeap.Insert(11);//
             binomialHeap.Insert(12);
             binomialHeap.Insert(13);
 
@@ -66,8 +66,12 @@ namespace BinomialHeap
 
             BinomialHeapPack.BinomialHeap binomialHeap2 = new BinomialHeapPack.BinomialHeap(3);
             binomialHeap2.Insert(4);
-            binomialHeap2.Insert(2);
-            binomialHeap2.Insert(8);
+            binomialHeap2.Insert(2);//
+            binomialHeap2.Insert(8);//
+            binomialHeap2.Insert(3);
+            binomialHeap2.Insert(85);
+            binomialHeap2.Insert(1);
+            binomialHeap2.Insert(-10);
 
 
             Debug.WriteLine("binomialHeap2 min = {0}", binomialHeap2.GetMin()); // 2

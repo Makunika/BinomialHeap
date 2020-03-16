@@ -22,15 +22,23 @@ namespace BinomialHeap.BinomialHeapPack
         {
             if (heap == null)
             {
-                if (size == 2)
+                switch (size)
                 {
-                    h2 = null;
-                    size = 1;
-                }
-                if (size == 1)
-                {
-                    h1 = null;
-                    size = 0;
+                    case 2:
+                    case 3:
+                        {
+                            h2 = null;
+                            size = 1;
+                            break;
+                        }
+                    case 1:
+                        {
+                            h1 = null;
+                            size = 0;
+                            break;
+                        }
+                    default:
+                        break;
                 }
             }
             else
