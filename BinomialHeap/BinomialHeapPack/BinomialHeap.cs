@@ -71,14 +71,14 @@ namespace BinomialHeap.BinomialHeapPack
             else
             {
                 //Добавление не хватающих элементов
-                int off = binHeaps.Count - 1;
+                int off = binHeaps.Count;
                 for (int i = off; i < binomialHeap2.binHeaps.Count; i++)
                 {
                     binHeaps.Add(binomialHeap2.binHeaps[i]);
                 }
 
                 //Мерджить только те элементы, который в binomialHeap2 имеют ращмер больше 0
-                for (int i = 0; i < off + 1; i++)
+                for (int i = 0; i < off; i++)
                 {
                     //TODO: работа строго регулярной системы. Пока набросок того, чтобы было всегда 2.
                     if (binomialHeap2.binHeaps[i].size > 0)
@@ -216,16 +216,24 @@ namespace BinomialHeap.BinomialHeapPack
                             {
                                 //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
                                 binHeaps[indexDegree + 1].SetHeap(h3);
+                                if (binHeaps[indexDegree + 1].size > 2) fix_carry(indexDegree + 1, null);
                                 break;
                             }
                         case 2:
                             {
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////TODO: ЕСЛИ СЛЕДУЮЩИЙ БИТ СТАНЕТ 3, ТО ЭТО НИКАК НЕ ОБРАБАТЫВАЕТСЯ И ОН ОСТАНЕТСЯ ТРОЙКОЙ///////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
                                 //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
                                 //int degreetmp = HeapMerge.degree;
                                 //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
                                 //binHeaps[degreetmp].SetHeap(null);
-                                //Merge(HeapMerge);
+                                //Merge(h3);
                                 binHeaps[indexDegree + 1].size = 3;
+                                fix_carry(indexDegree + 1, h3);
                                 break;
                             }
                         default:
@@ -247,6 +255,7 @@ namespace BinomialHeap.BinomialHeapPack
                             {
                                 //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
                                 binHeaps[indexDegree + 1].SetHeap(tmp1);
+                                if (binHeaps[indexDegree + 1].size > 2) fix_carry(indexDegree + 1, null);
                                 break;
                             }
                         case 2:
@@ -259,8 +268,9 @@ namespace BinomialHeap.BinomialHeapPack
                                 //int degreetmp = HeapMerge.degree;
                                 //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
                                 //binHeaps[degreetmp].SetHeap(null);
-                                //Merge(HeapMerge);
+                                //Merge(tmp1);
                                 binHeaps[indexDegree + 1].size = 3;
+                                fix_carry(indexDegree + 1, tmp1);
                                 break;
                             }
                         default:
