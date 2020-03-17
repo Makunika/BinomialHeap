@@ -57,30 +57,47 @@ namespace BinomialHeap
             //b.AddChild(a);
             //b.AddChild(new BinomialHeap.Node(7));
 
-            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);//
-            binomialHeap.Insert(11);//
-            binomialHeap.Insert(12);
-            binomialHeap.Insert(13);
-
-            Debug.WriteLine("binomialHeap min = {0}", binomialHeap.GetMin()); // 10
-
-            BinomialHeapPack.BinomialHeap binomialHeap2 = new BinomialHeapPack.BinomialHeap(3);
-            binomialHeap2.Insert(4);
-            binomialHeap2.Insert(2);//
-            binomialHeap2.Insert(8);//
-            binomialHeap2.Insert(3);
-            binomialHeap2.Insert(85);
-            binomialHeap2.Insert(1);
-            binomialHeap2.Insert(-10);
 
 
-            Debug.WriteLine("binomialHeap2 min = {0}", binomialHeap2.GetMin()); // 2
 
-            binomialHeap.Insert(binomialHeap2); // Теперь binomialHeap - дерево степени 3.
 
-            binomialHeap.Insert(4);
 
-            Debug.WriteLine("a min = {0}", binomialHeap.GetMin()); // 2
+            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            for (int i = 0; i < 10000; i++)
+            {
+                binomialHeap.Insert(i);
+            }
+
+            stopWatch.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Debug.WriteLine("RunTime sozdanie " + elapsedTime);
+
+
+            stopWatch.Restart();
+
+            int min = binomialHeap.GetMin();
+            stopWatch.Stop();
+
+            ts = stopWatch.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Debug.WriteLine("RunTime min " + elapsedTime + " binomialHeap min = {0}", min);
+
+
+
+
+            //Debug.WriteLine("binomialHeap min = {0}", binomialHeap.GetMin()); // 10
+
+
         }
     }
 }

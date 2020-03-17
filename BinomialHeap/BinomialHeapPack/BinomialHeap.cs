@@ -40,8 +40,10 @@ namespace BinomialHeap.BinomialHeapPack
 
         public void Insert(int num)
         {
-            BinomialHeap binomialHeapTmp = new BinomialHeap(num);
-            Insert(binomialHeapTmp);
+            //BinomialHeap binomialHeapTmp = new BinomialHeap(num);
+
+            Heap heap = new Heap(num);
+            Merge(heap);
         }
 
 
@@ -143,7 +145,7 @@ namespace BinomialHeap.BinomialHeapPack
 
             // 2. Находим db - первую экстремальную цифру {0,2,N/A} перед (дальше в списке) i
             int index_of_db = -1;
-            for (int bit = HeapMerge.degree + 1; bit < binHeaps.Count - 1; bit++) // Проходимся до конца списка
+            for (int bit = HeapMerge.degree + 1; bit < binHeaps.Count; bit++) // Проходимся до конца списка
             {
                 if ((binHeaps[bit].size == 0) || (binHeaps[bit].size == 2)) // TODO: Понять, что значит N/A число.
                 {
@@ -221,17 +223,12 @@ namespace BinomialHeap.BinomialHeapPack
                             }
                         case 2:
                             {
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- ///////////////////////////////////////////////TODO: ЕСЛИ СЛЕДУЮЩИЙ БИТ СТАНЕТ 3, ТО ЭТО НИКАК НЕ ОБРАБАТЫВАЕТСЯ И ОН ОСТАНЕТСЯ ТРОЙКОЙ///////////////////////////////////////////
- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
                                 //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
                                 //int degreetmp = HeapMerge.degree;
                                 //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
                                 //binHeaps[degreetmp].SetHeap(null);
                                 //Merge(h3);
+
                                 binHeaps[indexDegree + 1].size = 3;
                                 fix_carry(indexDegree + 1, h3);
                                 break;
