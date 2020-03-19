@@ -60,14 +60,14 @@ namespace BinomialHeap
 
 
 
-
+            Random rnd = new Random();
 
             BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000000; i++)
             {
-                binomialHeap.Insert(i);
+                binomialHeap.Insert(rnd.Next(-1000000, 1000000));
             }
 
             stopWatch.Stop();

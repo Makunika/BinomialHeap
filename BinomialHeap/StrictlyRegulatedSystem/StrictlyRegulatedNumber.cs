@@ -88,6 +88,59 @@ namespace BinomialHeap.StrictlyRegulatedSystem
         static public void decrement(ref List<int> d, int i)
         {
             // Декрементация (уменьшение на значение единицы) i-того элемента числа.
+            int len_of_number = d.Count; // Запоминаем исходную длину числа
+            if (len_of_number - 1 < i)
+            {
+                //Если длина числа меньше, чем необходимый бит, то ничего не делаем (не можем)
+                return;
+            }
+            // Если бит, который необходимо инкрементировать, существует,
+            // переходим к основному алгоритму.
+
+            // 1. Находим db - первую экстремальную цифру {0,2,N/A} перед (дальше в списке) i
+            int index_of_db = -1;
+            for (int bit = i + 1; bit < len_of_number; bit++) // Проходимся до конца списка
+            {
+                if ((d[bit] == 0) || (d[bit] == 2)) // TODO: Понять, что значит N/A число.
+                {
+                    index_of_db = bit;
+                    break;
+                }
+            }
+            bool is_db_NA = false; // Флаг, который поднимается, если db не существует
+            // Если индекс не изменился, значит, после di нет экстремальных чисел
+            if (index_of_db == -1)
+            {
+                is_db_NA = true;
+            }
+            // 2. Находим da - первую экстремальную цифру {0,2,N/A} после (раньше в списке) i
+            int index_of_da = -1;
+            for (int bit = i - 1; bit >= 0; bit--) // Проходимся до начала списка
+            {
+                if ((d[bit] == 0) || (d[bit] == 2)) // TODO: Понять, что значит N/A число.
+                {
+                    index_of_da = bit;
+                    break;
+                }
+            }
+            bool is_da_NA = false; // Флаг, который поднимается, если db не существует
+            // Если индекс не изменился, значит, после di нет экстремальных чисел
+            if (index_of_da == -1)
+            {
+                is_da_NA = true;
+            }
+            // 3. if di = 0 or (di = 1 and db = 0 and i != r — 1)
+            if (d[i] == 0 || (d[i] == 1 && (is_db_NA == false && d[index_of_db] == 0) && i != len_of_number - 1))
+            {
+                fix_borrow(ref d, i);
+            }
+            // 4. else if da = 0
+            else if (is_da_NA == false && d[index_of_da] == 0)
+            {
+                fix_borrow(ref d, index_of_da);
+            }
+            // 5. d[i]--
+            d[i]--;
         }
 
         static private void fix_carry(ref List<int> d, int i)
@@ -122,12 +175,15 @@ namespace BinomialHeap.StrictlyRegulatedSystem
             // Считается, что di <= 2.
             if (d[i] <= 2)
             {
-                //Выполняем:
-                // 1. d_(i+1)←d_(i+1)-1
-                // Не делаем проверку на сущетсвование, так как это ДОЛЖНО быть проверно раньше.
-                d[i+1] = d[i+1] - 1;
-                // 2. d_i←d_i+2
-                d[i] = d[i] + 2;
+                // Выполняем:
+                // (При условии, что d[i+1] существует.)
+                if (d.Count - 1 >= i + 1)
+                {
+                    // 1. d_(i+1)←d_(i+1)-1
+                    d[i + 1] = d[i + 1] - 1;
+                    // 2. d_i←d_i+2
+                    d[i] = d[i] + 2;
+                }
             }
         }
     }
