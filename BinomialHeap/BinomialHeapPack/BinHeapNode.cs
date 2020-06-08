@@ -26,10 +26,20 @@ namespace BinomialHeap.BinomialHeapPack
         {
             // Удаляет крайний heap из Node.
             if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
+            Heap return_heap = null;
+            for (int i = 0; i < size; i++)
+            {
+                if (heaps[i] != null)
+                {
+                    return_heap = heaps[i];
+                    heaps[i] = null;
+                    break;
+                }
+            }
 
             size--;
-            var return_heap = heaps[size];
-            heaps[size] = null;
+            
+            
 
             return return_heap;
         }
@@ -56,8 +66,16 @@ namespace BinomialHeap.BinomialHeapPack
         {
             // Добавляет переданный heap в Node.
             if (size >= 3) throw new Exception("RemoveHeap: BinHeapNode size >= 3");
+            for (int i = 0; i < size; i++)
+            {
+                if (heaps[i] == null)
+                {
+                    heaps[i] = heap;
+                    break;
+                }
+            }
+            size++;
 
-            heaps[size++] = heap;
         }
 
         public int GetMin()

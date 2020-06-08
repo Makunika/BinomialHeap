@@ -58,8 +58,9 @@ namespace BinomialHeap.BinomialHeapPack
                 list[i].head = child;
 
                 biheap.Insert(list[i]);
-
+                child.parent = null;
                 child = child.brother;
+         
             }
 
             return biheap;
