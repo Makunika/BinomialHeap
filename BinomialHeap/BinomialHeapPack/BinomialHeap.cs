@@ -63,19 +63,6 @@ namespace BinomialHeap.BinomialHeapPack
                 {
                     Merge(insertHeap.binHeaps[i].PopHeap());
                 }
-
-                // if (insertHeap.binHeaps[i].size > 0)
-                // {
-                //     if (insertHeap.binHeaps[i].size == 1)
-                //     {
-                //         Merge(insertHeap.binHeaps[i].h1);
-                //     }
-                //     else
-                //     {
-                //         Merge(insertHeap.binHeaps[i].h1);
-                //         Merge(insertHeap.binHeaps[i].h2);
-                //     }
-                // }
             }
         }
 
@@ -91,34 +78,6 @@ namespace BinomialHeap.BinomialHeapPack
             // 1. ++di
 
             binHeaps[mergeHeap.degree].AddHeap(mergeHeap);
-
-            // switch (binHeaps[mergeHeap.degree].size) // Бит, который стоит на месте степени дерева в числе
-            // {
-            //     case 0:
-            //         {
-            //             //если в элемнете хранится 0 пирамида, то просто добавляем ее туда
-            //             binHeaps[mergeHeap.degree].AddHeap(mergeHeap);
-            //             break;
-            //         }
-            //     case 1:
-            //         {
-            //             //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
-            //             binHeaps[mergeHeap.degree].AddHeap(mergeHeap);
-            //             break;
-            //         }
-            //     case 2:
-            //         {
-            //             //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
-            //             //int degreetmp = HeapMerge.degree;
-            //             //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
-            //             //binHeaps[degreetmp].SetHeap(null);
-            //             //Merge(HeapMerge);
-            //             binHeaps[mergeHeap.degree].size = 3;
-            //             break;
-            //         }
-            //     default:
-            //         break;
-            // }
 
             // 2. Находим db - первую экстремальную цифру {0,2,N/A} перед (дальше в списке) i
             int index_of_db = find_extremal(mergeHeap.degree + 1, binHeaps.Count);
@@ -173,15 +132,6 @@ namespace BinomialHeap.BinomialHeapPack
                 }
             }
 
-            // for(int bit = from; bit != to; bit += way)
-            // {
-            //     if ((binHeaps[bit].size == 0) || (binHeaps[bit].size == 2))
-            //     {
-            //         index = bit;
-            //         break;
-            //     }
-            // }
-
             return index;
         }
 
@@ -209,7 +159,7 @@ namespace BinomialHeap.BinomialHeapPack
                 }
 
                 binHeaps[indexDegree + 1].AddHeap(h1);
-                //if (binHeaps[indexDegree + 1].size >= 2) // Эта проверка не нужна, так как она выполняется в самом fix_carry
+                // if (binHeaps[indexDegree + 1].size >= 2) // Эта проверка не нужна, так как она выполняется в самом fix_carry
                 fix_carry(indexDegree + 1);
             }
         }
