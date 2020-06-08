@@ -47,18 +47,22 @@ namespace BinomialHeap.BinomialHeapPack
 
         public int GetMin() { return head.value; }
 
-        public Heap[] DeleteNode(Node node) //если удалим один элепмент, то дерево разобьется на мелкие дервья (поэтому возвращается массив)
+        public BinomialHeap DeleteRoot() //если удалим один элепмент, то дерево разобьется на мелкие дервья (поэтому возвращается массив)
         {
-            //Math.Log(degree) / Math.Log(2) - эквивалент степени числа в двоичной система счисления
-            int lenghtList = (int)(Math.Log(degree) / Math.Log(2)) - 1;
-            Heap[] list = new Heap[lenghtList];
+            BinomialHeap biheap = new BinomialHeap();
+            Heap[] list = new Heap[degree];
+            Node child = head.child;
+            for (int i = 0; i < degree; i++)
+            {
+                list[i] = new Heap();
+                list[i].head = child;
 
-            // TODO: код удаления ноды
-            //А может лучше только минимум удалять, а не рандомную ноду?
+                biheap.Insert(list[i]);
 
+                child = child.brother;
+            }
 
-
-            return list;
+            return biheap;
         }
 
         public Node Find(int value)

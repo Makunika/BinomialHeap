@@ -44,7 +44,6 @@ namespace BinomialHeap.BinomialHeapPack
             Merge(heap);
         }
 
-
         public void Insert(BinomialHeap insertHeap)
         {
             //Добавление не хватающих элементов
@@ -55,7 +54,7 @@ namespace BinomialHeap.BinomialHeapPack
             }
 
             //Мерджить только те элементы, который в mergeHeap имеют ращмер больше 0
-            for (int i = 0; i < off; i++)
+            for (int i = 0; i < insertHeap.binHeaps.Count; i++)
             {
                 int size = insertHeap.binHeaps[i].size;
 
@@ -64,6 +63,25 @@ namespace BinomialHeap.BinomialHeapPack
                     Merge(insertHeap.binHeaps[i].PopHeap());
                 }
             }
+        }
+
+        public void Insert(Heap insertHeap)
+        {
+            //Добавление не хватающих элементов
+            int off = binHeaps.Count;
+            for (int i = off; i <= insertHeap.degree; i++)
+            {
+                if (i == insertHeap.degree)
+                {
+                    binHeaps.Add(new BinHeapNode(insertHeap));
+                    return;
+                }
+                else binHeaps.Add(new BinHeapNode());
+            }
+
+            //Мерджить только те элементы, который в mergeHeap имеют ращмер больше 0
+
+            Merge(insertHeap);
         }
 
         private void Merge(Heap mergeHeap)
@@ -172,9 +190,20 @@ namespace BinomialHeap.BinomialHeapPack
             // Найти пирамиду по степени
             return null;
         }
-        public void Delete(Heap hp)
-        {
 
+        private Heap Delete(Heap hp)
+        {
+            BinomialHeap binHeap = hp.DeleteRoot();
+            var heap = binHeaps[hp.degree].PopHeap(hp);
+            Insert(binHeap);
+            return heap;
+        }
+
+        public int PopMin()
+        {
+            Heap heapToDelete = GetMinHeap();
+            var t = Delete(heapToDelete);
+            return t.head.value;
         }
         public int GetMin()
         {
@@ -188,6 +217,23 @@ namespace BinomialHeap.BinomialHeapPack
             }
 
             return min;
+        }
+
+        private Heap GetMinHeap()
+        {
+            Heap min_heap = null;
+            int min = int.MaxValue;
+            for (int i = 0; i < binHeaps.Count; i++)
+            {
+                Heap currentHeapMin = binHeaps[i].GetMinHeap();
+                if ((currentHeapMin != null ) && (currentHeapMin.head.value < min))
+                {
+                    min = currentHeapMin.head.value;
+                    min_heap = currentHeapMin;
+                }
+            }
+
+            return min_heap;
         }
         public void PrintHeap()
         {
