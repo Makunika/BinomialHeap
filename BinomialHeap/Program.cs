@@ -40,7 +40,7 @@ namespace BinomialHeap
             Random rnd = new Random();
 
             DateTime time1, time2;
-            int total = 10;
+            int total = 10000;
 
             rnd.Next(1, 2);
             BinomialHeapPack.BinomialHeap b = new BinomialHeapPack.BinomialHeap();

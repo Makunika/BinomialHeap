@@ -51,16 +51,15 @@ namespace BinomialHeap.BinomialHeapPack
         {
             BinomialHeap biheap = new BinomialHeap();
             Heap[] list = new Heap[degree];
-            Node child = head.child;
+            Node nxt = head.child;
             for (int i = 0; i < degree; i++)
             {
                 list[i] = new Heap();
-                list[i].head = child;
-
+                list[i].head = nxt;
+                nxt = nxt.brother;
+                list[i].head.brother = null;
+                list[i].head.parent = null;
                 biheap.Insert(list[i]);
-                child.parent = null;
-                child = child.brother;
-         
             }
 
             return biheap;
