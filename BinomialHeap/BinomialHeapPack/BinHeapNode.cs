@@ -8,57 +8,61 @@ namespace BinomialHeap.BinomialHeapPack
 {
     class BinHeapNode
     {
-        public Heap h1;
-        public Heap h2;
-        public int size;
+        Queue<Heap> heaps;
+        // public Heap h1;
+        // public Heap h2;
+        // public Heap h3;
+        public int size { get { return heaps.Count; } }
         public BinHeapNode()
         {
-            size = 0;
-            h1 = null;
-            h2 = null;
+            heaps = new Queue<Heap>();
         }
 
-        public void SetHeap(Heap heap)
+        public Heap PopHeap()
         {
-            if (heap == null)
+            // Удаляет крайний heap из Node.
+            if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
+            // Heap return_heap = null;
+            // if (size >= 3) { return_heap = h3; h3 = null; }
+            // else if (size == 2) { return_heap = h2; h2 = null; }
+            // else if (size == 1) { return_heap = h1; h1 = null; }
+            // size -= 1;
+            // return return_heap;
+
+            return heaps.Dequeue();
+        }
+
+        public void AddHeap(Heap heap)
+        {
+            // Добавляет переданный heap в Node.
+            if (size >= 3) throw new Exception("RemoveHeap: BinHeapNode size >= 3");
+            // if (size == 2)
+            // {
+            //     h3 = heap;
+            //     size = 3;
+            // }
+            // if (size == 1)
+            // {
+            //     h2 = heap;
+            //     size = 2;
+            // }
+            // else
+            // {
+            //     h1 = heap;
+            //     size = 1;
+            // }
+            heaps.Enqueue(heap);
+        }
+
+        public int GetMin()
+        {
+            int return_int = int.MaxValue;
+            foreach(Heap heap in heaps)
             {
-                switch (size)
-                {
-                    case 2:
-                    case 3:
-                        {
-                            h2 = null;
-                            size = 1;
-                            break;
-                        }
-                    case 1:
-                        {
-                            h1 = null;
-                            size = 0;
-                            break;
-                        }
-                    default:
-                        break;
-                }
+                if (heap.GetMin() < return_int)
+                    return_int = heap.GetMin();
             }
-            else
-            {
-                if (size == 2) throw new Exception("BinHeapNode size > 2");
-                if (size == 1)
-                {
-                    h2 = heap;
-                    size = 2;
-                }
-                else
-                {
-                    h1 = heap;
-                    size = 1;
-                }
-            }
-
-
-
-
+            return return_int;
         }
     }
 }

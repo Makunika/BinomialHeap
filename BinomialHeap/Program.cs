@@ -62,7 +62,7 @@ namespace BinomialHeap
 
             Random rnd = new Random();
 
-            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap(10);
+            BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap();
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             for (int i = 0; i < 1000000; i++)
