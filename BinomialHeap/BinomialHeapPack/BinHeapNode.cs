@@ -8,17 +8,15 @@ namespace BinomialHeap.BinomialHeapPack
 {
     class BinHeapNode
     {
-        private Heap[] heaps;
-        public int size { get; private set; }
+        List<Heap> heaps;
+        public int size { get { return heaps.Count; } }
         public BinHeapNode()
         {
-            heaps = new Heap[3];
-            size = 0;
+            heaps = new List<Heap>();
         }
         public BinHeapNode(Heap heap)
         {
-            heaps = new Heap[3];
-            size = 0;
+            heaps = new List<Heap>();
             AddHeap(heap);
         }
 
@@ -38,8 +36,8 @@ namespace BinomialHeap.BinomialHeapPack
             }
 
             size--;
-            
-            
+            var return_heap = heaps[size];
+            heaps[size] = null;
 
             return return_heap;
         }
@@ -49,13 +47,13 @@ namespace BinomialHeap.BinomialHeapPack
             // Удаляет крайний heap из Node.
             if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
             Heap return_heap;
-            for (int i = 0; i < size; i++)
+
+            foreach (Heap heap in heaps)
             {
-                if (hp == heaps[i])
+                if (hp == heap)
                 {
-                    return_heap = heaps[i];
-                    size--;
-                    heaps[i] = null;
+                    return_heap = heap;
+                    heaps.Remove(heap);
                     return return_heap;
                 }
             }
@@ -76,14 +74,15 @@ namespace BinomialHeap.BinomialHeapPack
             }
             size++;
 
+            heaps[size++] = heap;
         }
 
         public int GetMin()
         {
             int return_int = int.MaxValue;
-            foreach(Heap heap in heaps)
+            foreach (Heap heap in heaps)
             {
-                if ((heap != null) && (heap.GetMin() < return_int))
+                if (heap.GetMin() < return_int)
                     return_int = heap.GetMin();
             }
             return return_int;
@@ -94,7 +93,7 @@ namespace BinomialHeap.BinomialHeapPack
             if (size == 0) return null;
             int min_index = 0;
             int min_int = int.MaxValue;
-            for (int i = 0; i < heaps.Length; i++)
+            for (int i = 0; i < heaps.Count; i++)
             {
                 if ((heaps[i] != null) && (heaps[i].GetMin() < min_int))
                 {
