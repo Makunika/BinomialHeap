@@ -8,11 +8,11 @@ namespace BinomialHeap.BinomialHeapPack
 {
     class BinHeapNode
     {
-        Queue<Heap> heaps;
-        public int size { get { return heaps.Count; } }
+        Heap[] heaps;
+        public int size { get; private set; }
         public BinHeapNode()
         {
-            heaps = new Queue<Heap>();
+            heaps = new Heap[3];
         }
 
         public Heap PopHeap()
@@ -20,14 +20,19 @@ namespace BinomialHeap.BinomialHeapPack
             // Удаляет крайний heap из Node.
             if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
 
-            return heaps.Dequeue();
+            size--;
+            var return_heap = heaps[size];
+            heaps[size] = null;
+
+            return return_heap;
         }
 
         public void AddHeap(Heap heap)
         {
             // Добавляет переданный heap в Node.
             if (size >= 3) throw new Exception("RemoveHeap: BinHeapNode size >= 3");
-            heaps.Enqueue(heap);
+
+            heaps[size++] = heap;
         }
 
         public int GetMin()
@@ -35,7 +40,7 @@ namespace BinomialHeap.BinomialHeapPack
             int return_int = int.MaxValue;
             foreach(Heap heap in heaps)
             {
-                if (heap.GetMin() < return_int)
+                if ((heap != null) && (heap.GetMin() < return_int))
                     return_int = heap.GetMin();
             }
             return return_int;
