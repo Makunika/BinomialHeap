@@ -77,7 +77,9 @@ namespace BinomialHeap.BinomialHeapPack
 
             // 1. ++di
 
-            binHeaps[mergeHeap.degree].AddHeap(mergeHeap);
+            BinHeapNode currentNode = binHeaps[mergeHeap.degree];
+
+            currentNode.AddHeap(mergeHeap);
 
             // 2. Находим db - первую экстремальную цифру {0,2,N/A} перед (дальше в списке) i
             int index_of_db = find_extremal(mergeHeap.degree + 1, binHeaps.Count);
@@ -90,7 +92,7 @@ namespace BinomialHeap.BinomialHeapPack
             bool is_da_NA = index_of_da == -1; // Флаг, который поднимается, если db не существует
 
             // 4. if di=3 or ( di=2 and db!=0 )
-            if (binHeaps[mergeHeap.degree].size == 3 || (binHeaps[mergeHeap.degree].size == 2 && (is_db_NA || binHeaps[index_of_db].size != 0)))
+            if (currentNode.size == 3 || (currentNode.size == 2 && (is_db_NA || currentNode.size != 0)))
             {
                 fix_carry(mergeHeap.degree);
             }
@@ -140,14 +142,16 @@ namespace BinomialHeap.BinomialHeapPack
         {
             // Операция "фикс-перенос".
 
+            BinHeapNode currentNode = binHeaps[indexDegree];
+
             // Считается, что di >= 2.
-            if (binHeaps[indexDegree].size >= 2)
+            if (currentNode.size >= 2)
             {
                 //Выполняем:
                 // 1. d_i←d_i-2
 
-                var h1 = binHeaps[indexDegree].PopHeap();
-                var h2 = binHeaps[indexDegree].PopHeap();
+                var h1 = currentNode.PopHeap();
+                var h2 = currentNode.PopHeap();
 
                 h1.Merge(h2);
 
