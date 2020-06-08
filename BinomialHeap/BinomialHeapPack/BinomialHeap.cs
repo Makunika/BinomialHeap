@@ -144,27 +144,88 @@ namespace BinomialHeap.BinomialHeapPack
 
             BinHeapNode currentNode = binHeaps[indexDegree];
 
-            // Считается, что di >= 2.
-            if (currentNode.size >= 2)
+            if (binHeaps[indexDegree].size >= 2)
             {
                 //Выполняем:
                 // 1. d_i←d_i-2
-
-                var h1 = currentNode.PopHeap();
-                var h2 = currentNode.PopHeap();
-
-                h1.Merge(h2);
-
-                // 2. d_(i+1)←d_(i+1)+1
                 if (binHeaps.Count - 1 < indexDegree + 1)
                 {
                     BinHeapNode tmp = new BinHeapNode();
                     binHeaps.Add(tmp);
                 }
 
-                binHeaps[indexDegree + 1].AddHeap(h1);
-                if (binHeaps[indexDegree + 1].size > 2) // Эта проверка не нужна, так как она выполняется в самом fix_carry
-                    fix_carry(indexDegree + 1); // Явно нужно как-то убрать вот эту строчку.
+
+                if (binHeaps[indexDegree].size == 3)
+                {
+                    var h1 = binHeaps[indexDegree].PopHeap();
+                    var h2 = binHeaps[indexDegree].PopHeap();
+                    h1.Merge(h2);
+                    //Merge(h3);
+                    switch (binHeaps[indexDegree + 1].size) // Бит, который стоит на месте степени дерева в числе
+                    {
+                        case 0:
+                        case 1:
+                            {
+                                //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
+                                binHeaps[indexDegree + 1].AddHeap(h1);
+                                // if (binHeaps[indexDegree + 1].size > 2) fix_carry(indexDegree + 1);
+                                break;
+                            }
+                        case 2:
+                            {
+                                //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
+                                //int degreetmp = HeapMerge.degree;
+                                //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                                //binHeaps[degreetmp].SetHeap(null);
+                                //Merge(h3);
+
+                                //binHeaps[indexDegree + 1].size = 3;
+                                binHeaps[indexDegree + 1].AddHeap(h1);
+                                fix_carry(indexDegree + 1);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+                else // binHeaps[indexDegree].size == 2
+                {
+                    var h1 = binHeaps[indexDegree].PopHeap();
+                    var h2 = binHeaps[indexDegree].PopHeap();
+                    h1.Merge(h2);
+                    //Merge(tmp1);
+                    switch (binHeaps[indexDegree + 1].size) // Бит, который стоит на месте степени дерева в числе
+                    {
+                        case 0:
+                        case 1:
+                            {
+                                //если в элемнете хранится 0 или 1 пирамида, то просто добавляем ее туда
+                                binHeaps[indexDegree + 1].AddHeap(h1);
+                                //if (binHeaps[indexDegree + 1].size > 2) fix_carry(indexDegree + 1);
+                                break;
+                            }
+                        case 2:
+                            {
+                                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                ///////////////////////////////////////////////TODO: ЕСЛИ СЛЕДУЮЩИЙ БИТ СТАНЕТ 3, ТО ЭТО НИКАК НЕ ОБРАБАТЫВАЕТСЯ И ОН ОСТАНЕТСЯ ТРОЙКОЙ///////////////////////////////////////////
+                                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                                //если в элементе хранится 2 пирамиды, то необходимо одну из них замерджить c HeapMerge.
+                                //int degreetmp = HeapMerge.degree;
+                                //HeapMerge.Merge(binHeaps[HeapMerge.degree].h2);
+                                //binHeaps[degreetmp].SetHeap(null);
+                                //Merge(tmp1);
+                                binHeaps[indexDegree + 1].AddHeap(h1);
+                                fix_carry(indexDegree + 1);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+
+
+                }
+
             }
         }
         public Heap[] FindHeap(int degree)
