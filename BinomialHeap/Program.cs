@@ -43,20 +43,20 @@ namespace BinomialHeap
             time1 = DateTime.Now;
             for (int i = 0; i < total / 2; i++)
             {
-                c.Insert(rnd.Next(1, 100000));
-                c.Insert(i);
+                // c.Insert(rnd.Next(1, 100000));
+                c.Insert(i+100);
             }
                 
             time2 = DateTime.Now;
             Console.WriteLine($"Вставка {total / 2} элем в пирамиду за " + (time2 - time1));
 
             time1 = DateTime.Now;
-            //b.Insert(c);
+            b.Insert(c);
             time2 = DateTime.Now;
             Console.WriteLine($"Слияние пирамид по {total / 2} элем кажд за " + (time2 - time1));
 
             time1 = DateTime.Now;
-            for (int i = 0; i < total / 2; i++)
+            for (int i = 0; i < total; i++)
                 b.PopMin();
             time2 = DateTime.Now;
             Console.WriteLine($"Извлечение всех элементов из пирамиды с {total} элем за " + (time2 - time1));
