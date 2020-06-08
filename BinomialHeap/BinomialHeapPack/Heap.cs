@@ -54,8 +54,8 @@ namespace BinomialHeap.BinomialHeapPack
             Node child = head.child;
             for (int i = 0; i < degree; i++)
             {
-                list[i] = new Heap();
-                list[i].head = child;
+                child.parent = null;
+                list[i] = new Heap(child);
 
                 biheap.Insert(list[i]);
 

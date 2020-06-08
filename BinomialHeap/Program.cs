@@ -21,22 +21,8 @@ namespace BinomialHeap
         //    Application.Run(new Form1());
         //}
 
-        static public void print_list(List<int> list)
-        {
-            Console.Write("[");
-            for (int i = 0; i < list.Count; i++)
-            {
-                Console.Write(list[i]);
-                Console.Write(",");
-            }
-            Console.WriteLine("]");
-        }
-
         static void Main()
         {
-
-
-
             Random rnd = new Random();
 
             DateTime time1, time2;
@@ -46,14 +32,21 @@ namespace BinomialHeap
             BinomialHeapPack.BinomialHeap b = new BinomialHeapPack.BinomialHeap();
             time1 = DateTime.Now;
             for (int i = 0; i < total / 2; i++)
-                b.Insert(rnd.Next(1, 10000));
+            {
+                // b.Insert(rnd.Next(1, 10000));
+                b.Insert(i);
+            }
             time2 = DateTime.Now;
             Console.WriteLine($"Вставка {total / 2} элем в пирамиду за " + (time2 - time1));
 
             BinomialHeapPack.BinomialHeap c = new BinomialHeapPack.BinomialHeap();
             time1 = DateTime.Now;
             for (int i = 0; i < total / 2; i++)
+            {
                 c.Insert(rnd.Next(1, 100000));
+                c.Insert(i);
+            }
+                
             time2 = DateTime.Now;
             Console.WriteLine($"Вставка {total / 2} элем в пирамиду за " + (time2 - time1));
 
