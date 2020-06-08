@@ -163,8 +163,8 @@ namespace BinomialHeap.BinomialHeapPack
                 }
 
                 binHeaps[indexDegree + 1].AddHeap(h1);
-                // if (binHeaps[indexDegree + 1].size >= 2) // Эта проверка не нужна, так как она выполняется в самом fix_carry
-                fix_carry(indexDegree + 1);
+                if (binHeaps[indexDegree + 1].size > 2) // Эта проверка не нужна, так как она выполняется в самом fix_carry
+                    fix_carry(indexDegree + 1); // Явно нужно как-то убрать вот эту строчку.
             }
         }
         public Heap[] FindHeap(int degree)

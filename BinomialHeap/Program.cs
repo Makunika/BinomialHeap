@@ -65,7 +65,7 @@ namespace BinomialHeap
             BinomialHeapPack.BinomialHeap binomialHeap = new BinomialHeapPack.BinomialHeap();
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            for (int i = 0; i < 1000000; i++)
+            for (int i = 0; i < 500000; i++)
             {
                 binomialHeap.Insert(rnd.Next(-1000000, 1000000));
             }
@@ -92,6 +92,43 @@ namespace BinomialHeap
                 ts.Milliseconds / 10);
             Debug.WriteLine("RunTime min " + elapsedTime + " binomialHeap min = {0}", min);
 
+            BinomialHeapPack.BinomialHeap binomialHeap2 = new BinomialHeapPack.BinomialHeap();
+            Stopwatch stopWatch2 = new Stopwatch();
+            stopWatch2.Start();
+            for (int i = 0; i < 500000; i++)
+            {
+                binomialHeap2.Insert(rnd.Next(-1000000, 1000000));
+            }
+
+            stopWatch2.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts2 = stopWatch2.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts2.Hours, ts2.Minutes, ts2.Seconds,
+                ts2.Milliseconds / 10);
+            Debug.WriteLine("RunTime sozdanie " + elapsedTime2);
+
+            binomialHeap.PrintHeap();
+            binomialHeap2.PrintHeap();
+
+            Stopwatch stopWatch3 = new Stopwatch();
+            stopWatch3.Start();
+
+            binomialHeap.Insert(binomialHeap2);
+
+            stopWatch3.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts3 = stopWatch3.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime3 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts3.Hours, ts3.Minutes, ts3.Seconds,
+                ts3.Milliseconds / 10);
+            Debug.WriteLine("RunTime sliyanie " + elapsedTime3);
+
+            binomialHeap.PrintHeap();
 
 
 
