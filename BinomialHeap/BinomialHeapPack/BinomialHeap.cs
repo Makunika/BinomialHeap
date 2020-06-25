@@ -16,8 +16,7 @@ namespace BinomialHeap.BinomialHeapPack
         public Heap GetHeap(int degree)
         {
             if (degree > binHeaps.Count) throw new Exception("degree < degree");
-
-            return binHeaps[degree].
+            return binHeaps[degree].GetMinHeap();
         }
       
         public BinomialHeap()

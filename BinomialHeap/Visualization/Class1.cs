@@ -12,11 +12,16 @@ namespace BinomialHeap.Visualization
     {
         // The string we will draw.
         public string Text;
+        private BinomialHeapPack.Node node;
+        private int diametr = 40;
+        private int insets_x = 0;
+        private int insets_y = 30;
 
         // Constructor.
-        public CircleNode(string new_text)
+        public CircleNode(BinomialHeapPack.Node node)
         {
-            Text = new_text;
+            Text = node.value.ToString();
+            this.node = node;
         }
 
         // Return the size of the string plus a 10 pixel margin.
@@ -25,15 +30,49 @@ namespace BinomialHeap.Visualization
             return gr.MeasureString(Text, font) + new SizeF(10, 10);
         }
 
+        public void MyDraw(int steps_x, int steps_y, Graphics gr,
+            Pen pen, Brush bg_brush, Brush text_brush, Font font){
+            // Рисуем head
+            Draw(insets_x + (diametr - 10 + insets_x) * steps_x,
+                insets_y + (diametr + insets_y) * steps_y,
+                gr, pen, bg_brush, text_brush, font);
+            BinomialHeapPack.Node child = node.child;
+            if (child != null)
+            {
+
+                // Рисуем child
+                gr.DrawLine(pen, insets_x + (diametr - 10 + insets_x) * steps_x + diametr / 2,
+                 insets_y + (diametr + insets_y) * steps_y + diametr,
+                 insets_x + (diametr - 10 + insets_x) * (steps_x + pow(2, child.degree - 1)) + diametr / 2,
+                 insets_y + (diametr + insets_y) * (steps_y + 1));
+                CircleNode temp = new CircleNode(child);
+                temp.MyDraw(steps_x + pow(2, child.degree - 1), steps_y + 1,
+                    gr, pen, bg_brush, text_brush, font);
+                // Рисуем brother-ов child-а
+                BinomialHeapPack.Node brother = node.child.brother;
+                while (brother != null)
+                {
+                    gr.DrawLine(pen, insets_x + (diametr - 10 + insets_x) * steps_x + diametr / 2,
+                                     insets_y + (diametr + insets_y) * steps_y + diametr,
+                                     insets_x + (diametr - 10 + insets_x) * (steps_x + pow(2, brother.degree)) + diametr / 2,
+                                     insets_y + (diametr + insets_y) * (steps_y + 1));
+                    CircleNode brother_temp = new CircleNode(brother);
+                    brother_temp.MyDraw(steps_x + pow(2, brother.degree), steps_y + 1,
+                        gr, pen, bg_brush, text_brush, font);
+                    brother = brother.brother;
+                }
+            }
+        }
+
         // Draw the object centered at (x, y).
         void Draw(float x, float y, Graphics gr,
             Pen pen, Brush bg_brush, Brush text_brush, Font font)
         {
             // Fill and draw an ellipse at our location.
-            SizeF my_size = GetSize(gr, font);
+            SizeF my_size = new SizeF(diametr, diametr);
             RectangleF rect = new RectangleF(
-                x - my_size.Width / 2,
-                y - my_size.Height / 2,
+                x,
+                y,
                 my_size.Width, my_size.Height);
             gr.FillEllipse(bg_brush, rect);
             gr.DrawEllipse(pen, rect);
@@ -44,8 +83,15 @@ namespace BinomialHeap.Visualization
                 string_format.Alignment = StringAlignment.Center;
                 string_format.LineAlignment = StringAlignment.Center;
                 gr.DrawString(Text, font, text_brush,
-                    x, y, string_format);
+                    x + my_size.Width / 2, y + my_size.Height / 2, string_format);
             }
+        }
+
+
+        private int pow(int number, int pow)
+        {
+            if (pow <= 0) return 0;
+            return (int)Math.Pow(number, pow);
         }
     }
 
@@ -72,17 +118,11 @@ namespace BinomialHeap.Visualization
 
 
             Graphics gr = CreateGraphics();
-            int most_right_x = 0; // Самый правый x
-            // Обходим дерево
-            Node n = heap.head.child;
-            CircleNode newCircleNode = new CircleNode(heap.head.value.ToString());
-            int y = 1;
-            int x = 1;
-            newCircleNode.Draw(inset * x, inset * y, gr, pen, br_back, br_text, );
-            do
-            {
-                n = n.brother;
-            } while (n);
+
+            CircleNode newCircleNode = new CircleNode(heap.head);
+            int y = 0;
+            int x = 0;
+            newCircleNode.MyDraw(inset * x, inset * y, gr, pen, br_back, br_text, font);
 
             // Рисуем для каждого Node кружок
         }

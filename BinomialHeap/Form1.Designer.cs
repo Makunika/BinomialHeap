@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.labelHeap = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -52,14 +51,6 @@
             this.labelHeap.Size = new System.Drawing.Size(136, 13);
             this.labelHeap.TabIndex = 1;
             this.labelHeap.Text = "Числовой вид пирамиды:";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(12, 63);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(173, 291);
-            this.panel1.TabIndex = 2;
             // 
             // textBox1
             // 
@@ -140,9 +131,9 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(307, 96);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(15, 56);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(491, 301);
             this.flowLayoutPanel1.TabIndex = 11;
             // 
             // Form1
@@ -160,7 +151,6 @@
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelHeap);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -177,7 +167,6 @@
 
         #endregion
         private System.Windows.Forms.Label labelHeap;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
