@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="BinomialHeap.BinomialHeapPack.BinHeapNode">
+    <Position X="2" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAABAAAAAIAAAIAAAAA=</HashCode>
+      <FileName>BinomialHeapPack\BinHeapNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="h2" />
+      <Field Name="h1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BinomialHeap.BinomialHeapPack.BinomialHeap">
+    <Position X="5.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAAAAAAAAAAAAAAAAAAAECBQAAAAAAABAAAAA=</HashCode>
+      <FileName>BinomialHeapPack\BinomialHeap.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="binHeaps" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BinomialHeap.BinomialHeapPack.Heap">
+    <Position X="5.25" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAgAAAAAAAAAAAAAAEAAAIEQAAAAAAABAAAAA=</HashCode>
+      <FileName>BinomialHeapPack\Heap.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="head" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BinomialHeap.BinomialHeapPack.Node">
+    <Position X="8.75" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEABAgACAAAAAAAAIECAAEAAAAAAAAAI=</HashCode>
+      <FileName>BinomialHeapPack\Node.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="brother" />
+      <Field Name="parent" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

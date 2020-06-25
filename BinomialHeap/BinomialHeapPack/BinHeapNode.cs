@@ -8,57 +8,80 @@ namespace BinomialHeap.BinomialHeapPack
 {
     class BinHeapNode
     {
-        public Heap h1;
-        public Heap h2;
-        public int size;
+        List<Heap> heaps;
+        public int size { get { return heaps.Count; } }
         public BinHeapNode()
         {
-            size = 0;
-            h1 = null;
-            h2 = null;
+            heaps = new List<Heap>();
+        }
+        public BinHeapNode(Heap heap)
+        {
+            heaps = new List<Heap>();
+            AddHeap(heap);
         }
 
-        public void SetHeap(Heap heap)
+        public Heap PopHeap()
         {
-            if (heap == null)
+            // Удаляет крайний heap из Node.
+            if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
+
+            Heap return_heap = heaps.First();
+            heaps.Remove(return_heap);
+
+            return return_heap;
+        }
+
+        public Heap PopHeap(Heap hp)
+        {
+            // Удаляет крайний heap из Node.
+            if (size <= 0) throw new Exception("RemoveHeap: BinHeapNode size <= 0");
+            Heap return_heap;
+
+            foreach (Heap heap in heaps)
             {
-                switch (size)
+                if (hp == heap)
                 {
-                    case 2:
-                    case 3:
-                        {
-                            h2 = null;
-                            size = 1;
-                            break;
-                        }
-                    case 1:
-                        {
-                            h1 = null;
-                            size = 0;
-                            break;
-                        }
-                    default:
-                        break;
+                    return_heap = heap;
+                    heaps.Remove(heap);
+                    return return_heap;
                 }
             }
-            else
+            throw new Exception("RemoveHeap: BinHeapNode heap != heaps");
+        }
+
+        public void AddHeap(Heap heap)
+        {
+            // Добавляет переданный heap в Node.
+            if (size >= 3) throw new Exception("RemoveHeap: BinHeapNode size >= 3");
+
+            heaps.Add(heap);
+        }
+
+        public int GetMin()
+        {
+            int return_int = int.MaxValue;
+            foreach (Heap heap in heaps)
             {
-                if (size == 2) throw new Exception("BinHeapNode size > 2");
-                if (size == 1)
+                if (heap.GetMin() < return_int)
+                    return_int = heap.GetMin();
+            }
+            return return_int;
+        }
+
+        public Heap GetMinHeap()
+        {
+            if (size == 0) return null;
+            int min_index = 0;
+            int min_int = int.MaxValue;
+            for (int i = 0; i < heaps.Count; i++)
+            {
+                if ((heaps[i] != null) && (heaps[i].GetMin() < min_int))
                 {
-                    h2 = heap;
-                    size = 2;
-                }
-                else
-                {
-                    h1 = heap;
-                    size = 1;
+                    min_int = heaps[i].GetMin();
+                    min_index = i;
                 }
             }
-
-
-
-
+            return heaps[min_index];
         }
     }
 }
