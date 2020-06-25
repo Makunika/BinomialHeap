@@ -12,8 +12,13 @@ namespace BinomialHeap.BinomialHeapPack
         List<BinHeapNode> binHeaps; // Для быстродействия можно отслеживать степени деревьяев, а не массив (есть стпепень - 1, нет - 0)
 
 
+        public Heap GetHeap(int degree)
+        {
+            if (degree > binHeaps.Count) throw new Exception("degree < degree");
 
-
+            return binHeaps[degree].
+        }
+        Z
         public BinomialHeap()
         {
             binHeaps = new List<BinHeapNode>();

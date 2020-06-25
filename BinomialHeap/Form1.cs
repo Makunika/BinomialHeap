@@ -14,26 +14,26 @@ namespace BinomialHeap
 {
     public partial class Form1 : Form
     {
+        BinomialHeapPack.BinomialHeap binomialHeap1;
+
+
         public Form1()
         {
             InitializeComponent();
+            binomialHeap1 = new BinomialHeapPack.BinomialHeap(rnd.Next(-1000000, 1000000));
+            for (int i = 0; i < 1000; i++)
+            {
+                binomialHeap1.Insert(rnd.Next(-1000000, 1000000));
+            }
         }
 
-        private void openTextFile_Click(object sender, EventArgs e)
+        private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            int[] array = null;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string str = File.ReadAllText(openFileDialog.FileName);
-                array = str.Split(' ').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x)).ToArray();
-            }
-
-            //Далее загрузка массива array в пирамиду и debug
-            Heap heap = new Heap(array);
-            //...
-
-
+            Graphics gr = panel1.CreateGraphics();
+            Pen p = new Pen(Color.Black, width:5);
+            gr.DrawEllipse(p, 50, 50, 60, 60);
+            // gr.DrawLine(p, 0, 0, 100, 100);
+            Class1 panel = new Class1(binomialHeap1.GetHeap(0))
         }
     }
 }
