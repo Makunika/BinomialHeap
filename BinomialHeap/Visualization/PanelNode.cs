@@ -19,23 +19,24 @@ namespace BinomialHeap.Visualization
             // this();
             this.AutoScroll = true;
             panel = new TreePanel(heap);
-            updateSize();
             this.Controls.Add(panel);
-            this.Scroll += Panel1_Scroll;
-        }
-
-
-        private void Panel1_Scroll(object sender, ScrollEventArgs e)
-        {
             Paint();
+            updateSize();
+            //this.Scroll += Panel1_Scroll;
         }
+
+
+        //private void Panel1_Scroll(object sender, ScrollEventArgs e)
+        //{
+         //   Paint();
+        //}
 
         public void updateSize()
         {
-            if (panel.Width > 400) this.Width = 400;
+            if (panel.Width > 1000) this.Width = 1000;
             else this.Width = panel.Width;
 
-            if (panel.Height > 400) this.Height = 400;
+            if (panel.Height > 1000) this.Height = 1000;
             else this.Height = panel.Height;
         }
 

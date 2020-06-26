@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.labelHeap = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -46,6 +47,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
@@ -94,6 +96,8 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(722, 395);
             this.flowLayoutPanel1.TabIndex = 11;
             this.flowLayoutPanel1.WrapContents = false;
+            this.flowLayoutPanel1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.flowLayoutPanel1_Scroll);
+            this.flowLayoutPanel1.MouseLeave += new System.EventHandler(this.flowLayoutPanel1_MouseLeave);
             // 
             // flowLayoutPanel3
             // 
@@ -107,7 +111,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 3);
+            this.button3.Location = new System.Drawing.Point(412, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(91, 64);
             this.button3.TabIndex = 9;
@@ -122,7 +126,7 @@
             this.flowLayoutPanel7.Controls.Add(this.flowLayoutPanel4);
             this.flowLayoutPanel7.Controls.Add(this.flowLayoutPanel5);
             this.flowLayoutPanel7.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel7.Location = new System.Drawing.Point(100, 3);
+            this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
             this.flowLayoutPanel7.Size = new System.Drawing.Size(403, 64);
             this.flowLayoutPanel7.TabIndex = 14;
@@ -210,13 +214,15 @@
             // 
             this.flowLayoutPanel6.AutoSize = true;
             this.flowLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel6.Controls.Add(this.button3);
             this.flowLayoutPanel6.Controls.Add(this.flowLayoutPanel7);
+            this.flowLayoutPanel6.Controls.Add(this.button3);
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 446);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
             this.flowLayoutPanel6.Size = new System.Drawing.Size(731, 70);
             this.flowLayoutPanel6.TabIndex = 13;
+            this.flowLayoutPanel6.MouseEnter += new System.EventHandler(this.flowLayoutPanel6_MouseEnter);
+            this.flowLayoutPanel6.MouseLeave += new System.EventHandler(this.flowLayoutPanel6_MouseLeave);
             // 
             // panel1
             // 
@@ -230,6 +236,11 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(731, 516);
             this.panel1.TabIndex = 13;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -279,6 +290,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

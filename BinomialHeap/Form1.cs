@@ -32,8 +32,8 @@ namespace BinomialHeap
 
             panelFlow = new BinHeapFlow(binomialHeap1, flowLayoutPanel1);
 
-
-
+            timer1.Stop();
+            panelFlow.Paint();
 
 
             // Panel panel_for_tree_panel = new Panel();
@@ -52,7 +52,7 @@ namespace BinomialHeap
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            panelFlow.Paint();
+            //panelFlow.Paint();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -78,6 +78,31 @@ namespace BinomialHeap
         {
             binomialHeap1.Clear();
             textBox1.Text = binomialHeap1.PrintHeapToString();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            panelFlow.Paint();
+        }
+
+        private void flowLayoutPanel1_Scroll(object sender, ScrollEventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void flowLayoutPanel1_MouseLeave(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void flowLayoutPanel6_MouseEnter(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void flowLayoutPanel6_MouseLeave(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
     }
 }

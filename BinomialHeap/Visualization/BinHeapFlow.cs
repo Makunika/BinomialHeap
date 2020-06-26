@@ -58,6 +58,7 @@ namespace BinomialHeap.Visualization
             flp.Controls.Clear();
             foreach(PanelNode panelNode in panels)
             {
+                panelNode.updateSize();
                 flp.Controls.Add(panelNode);
             }
             Paint();
