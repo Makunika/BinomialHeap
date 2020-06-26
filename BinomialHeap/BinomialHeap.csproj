@@ -60,7 +60,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StrictlyRegulatedSystem\StrictlyRegulatedNumber.cs" />
-    <Compile Include="Visualization\Class1.cs" />
+    <Compile Include="Visualization\BinHeapFlow.cs" />
+    <Compile Include="Visualization\TreePanel.cs" />
+    <Compile Include="Visualization\PanelNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Visualization\Visualization.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

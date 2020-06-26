@@ -17,8 +17,8 @@ namespace BinomialHeap
     {
         BinomialHeapPack.BinomialHeap binomialHeap1;
 
-        private Class1 panel;
-
+        //private TreePanel panel;
+        private BinHeapFlow panelFlow;
 
         public Form1()
         {
@@ -30,25 +30,54 @@ namespace BinomialHeap
                 binomialHeap1.Insert(rnd.Next(-10000, 10000));
             }
 
-            panel = new Class1(binomialHeap1.GetHeap(4));
-            panel.Size = new Size(1000, 1000);
-            flowLayoutPanel1.Controls.Add(panel);
-            flowLayoutPanel1.AutoSize = true;
+            panelFlow = new BinHeapFlow(binomialHeap1, flowLayoutPanel1);
+
+
+
+
+
+            // Panel panel_for_tree_panel = new Panel();
+            // panel_for_tree_panel.AutoScroll = true;
+            // panel_for_tree_panel.Width = 300;
+            // panel_for_tree_panel.Height = 300;
+            // panel = new TreePanel(binomialHeap1.GetHeap(4));
+            // 
+            // panel_for_tree_panel.Scroll += Panel1_Scroll;
+
+            // panel_for_tree_panel.Controls.Add(panel);
+            // flowLayoutPanel1.Controls.Add(panel_for_tree_panel);
+
+            textBox1.Text = binomialHeap1.PrintHeapToString();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics gr = flowLayoutPanel1.CreateGraphics();
-            
-            Pen p = new Pen(Color.Black, width:2);
-            SolidBrush myBrush = new SolidBrush(System.Drawing.Color.Red);
-            SolidBrush fontBrush = new SolidBrush(Color.Black);
-            Font font = new Font(FontFamily.GenericSansSerif, 10);
-            // gr.DrawEllipse(p, 50, 50, 60, 60);
-            // gr.DrawLine(p, 0, 0, 100, 100);
+            panelFlow.Paint();
+        }
 
-            panel.CreateGraphics().Clear(Color.White);
-            panel.Paint_(p, myBrush, fontBrush, font);
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Добавление элемента из text_box в пирамиду
+            int add_element;
+
+            if (Int32.TryParse(textBox2.Text, out add_element))
+            {
+                // Если удалось распарсить число из text_box
+                binomialHeap1.Insert(add_element);
+                panelFlow.update();
+                textBox1.Text = binomialHeap1.PrintHeapToString();
+            }
+            else
+            {
+                // Если не удалось распарсить число из text_box
+                // Вывести ошибку (?)
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            binomialHeap1.Clear();
+            textBox1.Text = binomialHeap1.PrintHeapToString();
         }
     }
 }

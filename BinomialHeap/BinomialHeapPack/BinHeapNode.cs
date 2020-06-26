@@ -8,7 +8,7 @@ namespace BinomialHeap.BinomialHeapPack
 {
     class BinHeapNode
     {
-        List<Heap> heaps;
+        public List<Heap> heaps { get; }
         public int size { get { return heaps.Count; } }
         public BinHeapNode()
         {

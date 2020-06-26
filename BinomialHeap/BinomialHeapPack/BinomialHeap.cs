@@ -10,7 +10,7 @@ namespace BinomialHeap.BinomialHeapPack
     class BinomialHeap
     {
         //Поля
-        List<BinHeapNode> binHeaps; // Для быстродействия можно отслеживать степени деревьяев, а не массив (есть стпепень - 1, нет - 0)
+        public List<BinHeapNode> binHeaps; // Для быстродействия можно отслеживать степени деревьяев, а не массив (есть стпепень - 1, нет - 0)
 
 
         public Heap GetHeap(int degree)
@@ -250,6 +250,22 @@ namespace BinomialHeap.BinomialHeapPack
                 Debug.Write(bhNode.size.ToString());
             }
             Debug.WriteLine("");
+        }
+
+        public string PrintHeapToString()
+        {
+            string result_str = "";
+            // Выводит все size-ы Node-ов из binHeaps.
+            foreach (BinHeapNode bhNode in binHeaps)
+            {
+                result_str += bhNode.size.ToString();
+            }
+            return result_str;
+        }
+
+        public void Clear()
+        {
+            binHeaps.Clear();
         }
     }
 }
