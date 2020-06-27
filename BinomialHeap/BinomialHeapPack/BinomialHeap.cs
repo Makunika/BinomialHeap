@@ -206,9 +206,11 @@ namespace BinomialHeap.BinomialHeapPack
             return heap;
         }
 
-        public int PopMin()
+        public int? PopMin()
         {
             Heap heapToDelete = GetMinHeap();
+            if (heapToDelete == null)
+                return null;
             var t = Delete(heapToDelete);
             return t.head.value;
         }
@@ -265,6 +267,10 @@ namespace BinomialHeap.BinomialHeapPack
 
         public void Clear()
         {
+            foreach (BinHeapNode bhNode in binHeaps)
+            {
+                bhNode.Clear();
+            }
             binHeaps.Clear();
         }
     }

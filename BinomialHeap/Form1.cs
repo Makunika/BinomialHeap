@@ -20,6 +20,8 @@ namespace BinomialHeap
         //private TreePanel panel;
         private BinHeapFlow panelFlow;
 
+        private bool need_to_redraw_panelFlow;  // Если необходимо перерисовать пирамиду, установи этот флаг в true.
+
         public Form1()
         {
             Random rnd = new Random();
@@ -32,40 +34,24 @@ namespace BinomialHeap
 
             panelFlow = new BinHeapFlow(binomialHeap1, flowLayoutPanel1);
 
-            timer1.Stop();
-            panelFlow.Paint();
-
-
-            // Panel panel_for_tree_panel = new Panel();
-            // panel_for_tree_panel.AutoScroll = true;
-            // panel_for_tree_panel.Width = 300;
-            // panel_for_tree_panel.Height = 300;
-            // panel = new TreePanel(binomialHeap1.GetHeap(4));
-            // 
-            // panel_for_tree_panel.Scroll += Panel1_Scroll;
-
-            // panel_for_tree_panel.Controls.Add(panel);
-            // flowLayoutPanel1.Controls.Add(panel_for_tree_panel);
-
-            textBox1.Text = binomialHeap1.PrintHeapToString();
+            need_to_redraw_panelFlow = true;  // Первоначальная отрисовка
+            timer1.Start();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //panelFlow.Paint();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             // Добавление элемента из text_box в пирамиду
-            int add_element;
 
-            if (Int32.TryParse(textBox2.Text, out add_element))
+            if (Int32.TryParse(textBox2.Text, out int add_element))
             {
                 // Если удалось распарсить число из text_box
                 binomialHeap1.Insert(add_element);
                 panelFlow.update();
-                textBox1.Text = binomialHeap1.PrintHeapToString();
+                need_to_redraw_panelFlow = true;
             }
             else
             {
@@ -74,35 +60,54 @@ namespace BinomialHeap
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
+            // Очистка binHeap-а
             binomialHeap1.Clear();
-            textBox1.Text = binomialHeap1.PrintHeapToString();
+            panelFlow.update();
+            need_to_redraw_panelFlow = true;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            panelFlow.Paint();
+            if (need_to_redraw_panelFlow)
+            {
+                flowLayoutPanel1.CreateGraphics().Clear(Color.White);
+                panelFlow.Paint();
+                textBox1.Text = binomialHeap1.PrintHeapToString();
+                need_to_redraw_panelFlow = false;
+            }
         }
 
-        private void flowLayoutPanel1_Scroll(object sender, ScrollEventArgs e)
+        private void FlowLayoutPanel1_Scroll(object sender, ScrollEventArgs e)
         {
-            timer1.Start();
+            need_to_redraw_panelFlow = true;
         }
 
-        private void flowLayoutPanel1_MouseLeave(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
+            // Получение минимума
+            int? a = binomialHeap1.PopMin();
+            if (a != null)
+            {
+                textBox3.Text = a.ToString();
+                panelFlow.update();
+                need_to_redraw_panelFlow = true;
+            }
+            else
+            {
+                textBox3.Text = "Пирамида пуста.";
+            }
         }
 
-        private void flowLayoutPanel6_MouseEnter(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            timer1.Start();
-        }
+            // Случайный элемент
+            Random rnd = new Random();
 
-        private void flowLayoutPanel6_MouseLeave(object sender, EventArgs e)
-        {
-            timer1.Stop();
+            binomialHeap1.Insert(rnd.Next(-10000, 10000));
+            panelFlow.update();
+            need_to_redraw_panelFlow = true;
         }
     }
 }

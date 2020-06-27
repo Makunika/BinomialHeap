@@ -83,5 +83,14 @@ namespace BinomialHeap.BinomialHeapPack
             }
             return heaps[min_index];
         }
+
+        public void Clear()
+        {
+            foreach (Heap heap in heaps)
+            {
+                heap.Clear();
+            }
+            heaps.Clear();
+        }
     }
 }

@@ -125,5 +125,20 @@ namespace BinomialHeap.BinomialHeapPack
             //TODO: Реализовать поиск без рекурсии (?)
              return null;
         }
+
+        public void Clear()
+        {
+            parent = null;
+            if (brother != null)
+            {
+                brother.Clear();
+                brother = null;
+            }
+            if (child != null)
+            {
+                child.Clear();
+                child = null;
+            }
+        }
     }
 }

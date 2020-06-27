@@ -41,7 +41,10 @@ namespace BinomialHeap.Visualization
 
         public void update()
         {
-            panels = new List<PanelNode>();
+            if (panels == null)
+                panels = new List<PanelNode>();
+            else
+                panels.Clear();
             for (int i = 0; i < binHeap.binHeaps.Count; i++)
             {
                 if (binHeap.binHeaps[i].size == 1)

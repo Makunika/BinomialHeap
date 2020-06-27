@@ -116,5 +116,9 @@ namespace BinomialHeap.BinomialHeapPack
             }
         }
 
+        public void Clear()
+        {
+            head.Clear();
+        }
     }
 }
